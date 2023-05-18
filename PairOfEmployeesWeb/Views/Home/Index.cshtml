@@ -1,0 +1,44 @@
+﻿@model IndexHomeInputModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h6 class="display-4">Please, upload your file!</h6>
+    <form asp-action="Index" asp-controller="Home" class="shadow p-4 bg-light" enctype="multipart/form-data" method="post">
+        <div class="form-group m-4">
+            <input asp-for="File" type="file" class="form-control-file">
+            <span asp-validation-for="File" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </form>
+</div>
+
+@if (this.Model.Pairs != null)
+{
+    <div class="text-center shadow mt-4 p-4 bg-light">
+        <h6>Longest Pairs: </h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">First Employee Id</th>
+                    <th scope="col">Second Employee Id</th>
+                    <th scope="col">Project Id</th>
+                    <th scope="col">Days Worked</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kvp in this.Model.Pairs)
+                {
+                    <tr>
+                        <td>@kvp.Value.FirstEmployeeId</td>
+                        <td>@kvp.Value.SecondEmployeeId</td>
+                        <td>@kvp.Key</td>
+                        <td>@kvp.Value.DaysWorked</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
